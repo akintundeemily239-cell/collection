@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="UTF-8">
+    <title> Registration form</title>  
+    <style>
+        body {
+            background-color:rgb(200 100 50) ;
+            width: 100%;
+            height: 100vh;
+            color: white;
+        }
+        h1,p {
+            text-align: center;
+            margin: 1em;
+        }
+        /* form {
+            width: auto;
+            padding: 2em;
+        } */
+    </style>  
+    </head>
+    <body>
+        <h1>Registration form</h1> 
+        <p>please fill out the form required in the information.</p>
+        <form action="post"></form>
+        <fieldset>
+
+            <label for="first name">Enter your first name:</label><br>
+                <input id="first name" name="firstname" type="text" required /><br>
+            <label for="last name">Enter your last name: </label><br>
+            <input id="last name" name="last name" type="text" required /><br>
+            <label for="email">Enter your email: </label><br>
+            <input id="email" name="email" type="text" required/><br>
+            <label for="password">Enter your password:</label><br>
+            <input id="password" name="email" type="text" required/><br>
+        </fieldset>
+        <fieldset>
+            <legend>Account required</legend>
+            <label for="school account"><input id="school account" name="account type" type="radio" />School</label><br>
+           <label for="office account"><input id="office account" name="account type" type="radio"/>Office</label>
+        </fieldset>
+        <fieldset>
+        <label for="profile picture">Upload your profile picture:</label><br>
+        <input id="profile picture" type="file" name="file"/><br>
+        <label for="age"> Input your age(year):</label><br>
+       <input id="age" type="file" name="file"/><br>
+        </fieldset> 
+        <lable>
+            <input type="submit" value="submit"/>
+        </form>
+    </body>
+</html>

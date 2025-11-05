@@ -1,0 +1,464 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dashboard — Recreated</title>
+
+  <!-- Google fonts (optional) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --blue:#1180bf;
+      --muted:#e7eef6;
+      --card:#ffffff;
+      --accent:#f3b800; /* thin left border on some cards */
+      --text:#1f2933;
+      --muted-text:#6b7280;
+      --shadow: 0 6px 18px rgba(28,40,50,0.06);
+      --radius:12px;
+      --gap:18px;
+    }
+    *{
+      box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      margin:0;
+      background:linear-gradient(180deg,#eef6fb 0%, #f7fbff 100%);
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding: 18px;
+    }
+
+    .app {
+      display:flex;
+      height: calc(100vh - 36px);
+      gap:var(--gap);
+      align-items:stretch;
+    }
+
+    /* Left sidebar */
+    .sidebar{
+      width: 220px;
+      background:var(--blue);
+      color:white;
+      border-radius:12px;
+      padding:22px 18px;
+      display:flex;
+      flex-direction:column;
+      gap:16px;
+      box-shadow: 0 6px 18px rgba(17,128,191,0.08);
+      min-height: 0;
+    }
+    .brand{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      font-weight:700;
+      font-size:18px;
+      margin-bottom:6px;
+    }
+    .brand .logo{
+      width:34px;height:34px;border-radius:6px;background:rgba(255,255,255,0.12);
+      display:flex;align-items:center;justify-content:center;font-weight:800;
+    }
+    .nav{
+      display:flex;flex-direction:column;gap:10px;margin-top:6px;
+    }
+    .nav a{
+      color:rgba(255,255,255,0.95);
+      text-decoration:none;padding:10px;border-radius:8px;display:flex;gap:10px;align-items:center;font-weight:600;
+    }
+    .nav a:hover{background:rgba(255,255,255,0.06)}
+    .nav small{display:block;font-size:12px;opacity:0.9}
+
+    .sidebar .meta{
+      margin-top:auto;
+      font-size:13px;opacity:0.95;
+    }
+
+    /* Main body area: header + content + right column */
+    .container {
+      flex:1;
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+      min-width:0;
+    }
+
+    /* top header */
+    .topbar{
+      display:flex;
+      align-items:center;
+      gap:16px;
+      background:rgba(255,255,255,0.9);
+      padding:16px;
+      border-radius:12px;
+      box-shadow:var(--shadow);
+      align-items:center;
+    }
+
+    .search {
+      display:flex;flex:1;align-items:center;gap:12px;
+      background:var(--muted);padding:10px 12px;border-radius:999px;
+    }
+    .search input{
+      border:0;background:transparent;font-size:14px;outline:none;width:100%;
+    }
+    .user-actions{
+      display:flex;gap:10px;align-items:center;
+    }
+    .btn {
+      border:0;padding:8px 14px;border-radius:20px;font-weight:600;background:#0ea5bf;color:white;cursor:pointer;
+      box-shadow: 0 6px 12px rgba(14,165,191,0.12);
+    }
+    .btn.ghost{background:transparent;color:var(--text);border:1px solid rgba(0,0,0,0.06) }
+
+    .avatar{
+      display:flex;align-items:center;gap:10px;padding-left:12px;
+    }
+    .avatar .img{
+      width:38px;height:38px;border-radius:50%;background:linear-gradient(180deg,#fff 0,#ffe), #ffd966;
+      display:flex;align-items:center;justify-content:center;font-weight:800;
+      box-shadow:0 4px 10px rgba(0,0,0,0.06);
+    }
+
+    /* content area with 2 columns: main cards + right sidebar */
+    .content{
+      display:grid;
+      grid-template-columns: 1fr 300px;
+      gap:var(--gap);
+      align-items:start;
+      min-height:0;
+    }
+
+    /* main cards area */
+    .main{
+      display:flex;flex-direction:column;gap:16px;min-width:0;
+    }
+
+    .section-title{
+      display:flex;align-items:center;justify-content:space-between;
+      gap:10px;
+    }
+    .section-title h2{margin:0;font-size:18px}
+    .section-title .sub{color:var(--muted-text);font-size:13px}
+
+    .cards {
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap:14px;
+    }
+
+    .card{
+      background:var(--card);
+      border-radius:12px;
+      padding:16px;
+      min-height:100px;
+      box-shadow:var(--shadow);
+      position:relative;
+      overflow:visible;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    /* decorative left stripe on alternate cards */
+    .card.strip::before{
+      content:"";
+      position:absolute;left:0;top:10px;bottom:10px;width:8px;background:var(--accent);border-top-left-radius:8px;border-bottom-left-radius:8px;
+    }
+
+    .card h3{margin:0;font-size:15px}
+    .card p{margin:0;color:var(--muted-text);font-size:13px;line-height:1.4}
+    .card .meta{
+      display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:6px;
+    }
+    .card .icons{display:flex;gap:12px;align-items:center}
+    .icon-btn{width:32px;height:32px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;border:1px dashed rgba(0,0,0,0.06);cursor:pointer}
+    .card:hover{transform:translateY(-4px);transition:all .18s ease;box-shadow:0 12px 28px rgba(28,40,50,0.08)}
+
+    /* right column style */
+    .rightcol{
+      display:flex;flex-direction:column;gap:14px;
+      min-width:0;
+    }
+
+    .panel{
+      background:linear-gradient(180deg,#ffffff, #fbfdff);
+      padding:14px;border-radius:12px;box-shadow:var(--shadow);
+    }
+    .panel h4{margin:0 0 8px 0;font-size:15px}
+    .announcement{
+      display:flex;flex-direction:column;gap:10px;
+    }
+    .announce-item{
+      border-left:3px solid rgba(0,0,0,0.04);
+      padding-left:10px;
+      font-size:13px;color:var(--muted-text);
+    }
+
+    .trending-list{display:flex;flex-direction:column;gap:10px}
+    .trend{
+      display:flex;gap:10px;align-items:center;background:rgba(0,0,0,0.03);padding:8px;border-radius:8px;
+    }
+    .trend .avatar-small{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700}
+    .trend .who{font-size:13px;font-weight:700}
+    .trend .what{font-size:12px;color:var(--muted-text)}
+
+    /* responsive */
+    @media (max-width:1000px){
+      .content{grid-template-columns: 1fr; }
+      .cards{grid-template-columns: 1fr;}
+      .sidebar{display:none}
+      body{padding:14px}
+    }
+
+    /* small utility */
+    .muted{color:var(--muted-text);font-size:13px}
+    .small{font-size:12px;color:var(--muted-text)}
+  </style>
+</head>
+<body>
+
+  <div class="app">
+    <!-- Sidebar -->
+    <aside class="sidebar" aria-label="Main navigation">
+      <div class="brand">
+        <div class="logo">DB</div>
+        <div>
+          <div style="font-weight:800">Dashboard</div>
+          <small style="opacity:0.9">Workspace</small>
+        </div>
+      </div>
+
+      <nav class="nav" aria-label="Sidebar links">
+        <a href="#"><span>🏠</span> Home</a>
+        <a href="#"><span>👤</span> Profile</a>
+        <a href="#"><span>✉️</span> Messages</a>
+        <a href="#"><span>🕒</span> History</a>
+        <a href="#"><span>✅</span> Tasks</a>
+        <a href="#"><span>🌐</span> Communities</a>
+        <a href="#"><span>⚙️</span> Settings</a>
+        <a href="#"><span>❓</span> Support</a>
+        <a href="#"><span>🔒</span> Privacy</a>
+        
+      </nav>
+
+      <div class="meta">
+        <div class="small">Signed in as</div>
+        <div style="font-weight:700">Morgan Oakley</div>
+      </div>
+    </aside>
+
+    <!-- Container -->
+    <main class="container">
+      <!-- Topbar -->
+      <header class="topbar" role="banner">
+        <div style="display:flex;align-items:center;gap:14px;">
+          <div style="font-weight:700">Hi there,&nbsp;<span style="display:block">Morgan Oakley <span class="muted">@morgan</span></span></div>
+        </div>
+
+        <div class="search" role="search" aria-label="Search projects">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="opacity:0.7"><path d="M21 21l-4.35-4.35" stroke="#0b2540" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <input id="searchInput" placeholder="Search projects..." />
+        </div>
+
+        <div class="user-actions">
+          <button class="btn">New</button>
+          <button class="btn ghost" id="uploadBtn">Upload</button>
+          <button class="btn ghost">Share</button>
+
+          <div class="avatar">
+            <div class="img" title="Morgan">MO</div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Content -->
+      <section class="content">
+        <!-- main column -->
+        <div class="main">
+          <div class="section-title">
+            <h2>Your Projects</h2>
+            <div class="sub">6 projects</div>
+          </div>
+
+          <div class="cards" id="cardsContainer">
+            <!-- Card 1 -->
+            <article class="card strip" data-title="Super Cool Project">
+              <h3>Super Cool Project</h3>
+              <p>Sed tempus ut lacus ut scelerisque. Suspendisse sollicitudin nibh erat, id facilisis felis accumsan nec.</p>
+              <div class="meta">
+                <div class="small">Updated 2 days ago</div>
+                <div class="icons">
+                  <div class="icon-btn" title="Favorite">☆</div>
+                  <div class="icon-btn" title="Preview">👁</div>
+                  <div class="icon-btn" title="Share">⋯</div>
+                </div>
+              </div>
+            </article>
+
+            <!-- Card 2 -->
+            <article class="card strip" data-title="Less Cool Project">
+              <h3>Less Cool Project</h3>
+              <p>Nullam condimentum ipsum ut lectus vehicula consectetur. Quisque sed dolor tincidunt, consectetur sapien et.</p>
+              <div class="meta">
+                <div class="small">Updated 1 week ago</div>
+                <div class="icons">
+                  <div class="icon-btn">☆</div>
+                  <div class="icon-btn">👁</div>
+                  <div class="icon-btn">⋯</div>
+                </div>
+              </div>
+            </article>
+
+            <!-- Card 3 -->
+            <article class="card" data-title="Impossible App">
+              <h3>Impossible App</h3>
+              <p>In hac habitasse platea dictumst. Vivamus dictum rutrum arcu, a placerat velit sagittis id.</p>
+              <div class="meta">
+                <div class="small">Draft</div>
+                <div class="icons">
+                  <div class="icon-btn">☆</div>
+                  <div class="icon-btn">👁</div>
+                  <div class="icon-btn">⋯</div>
+                </div>
+              </div>
+            </article>
+
+            <!-- Card 4 -->
+            <article class="card strip" data-title="Easy Peasy App">
+              <h3>Easy Peasy App</h3>
+              <p>Etiam cursus eros ac efficitur fringilla. Vestibulum dignissim urna eget accumsan aliquam.</p>
+              <div class="meta">
+                <div class="small">Live</div>
+                <div class="icons">
+                  <div class="icon-btn">☆</div>
+                  <div class="icon-btn">👁</div>
+                  <div class="icon-btn">⋯</div>
+                </div>
+              </div>
+            </article>
+
+            <!-- Card 5 -->
+            <article class="card" data-title="Ad Blocker">
+              <h3>Ad Blocker</h3>
+              <p>Quisque eget rutrum nisl. Nam augue justo, cursus vitae metus vel, pharetra hendrerit felis.</p>
+              <div class="meta">
+                <div class="small">Beta</div>
+                <div class="icons">
+                  <div class="icon-btn">☆</div>
+                  <div class="icon-btn">👁</div>
+                  <div class="icon-btn">⋯</div>
+                </div>
+              </div>
+            </article>
+
+            <!-- Card 6 -->
+            <article class="card strip" data-title="Money Maker">
+              <h3>Money Maker</h3>
+              <p>Praesent convallis, libero quis congue elementum, nunc ante faucibus sapien, ac scelerisque tortor purus sit amet ex.</p>
+              <div class="meta">
+                <div class="small">Archived</div>
+                <div class="icons">
+                  <div class="icon-btn">☆</div>
+                  <div class="icon-btn">👁</div>
+                  <div class="icon-btn">⋯</div>
+                </div>
+              </div>
+            </article>
+
+          </div>
+        </div>
+
+        <!-- right column -->
+        <aside class="rightcol">
+          <div class="panel announcement" aria-labelledby="annTitle">
+            <h4 id="annTitle">Announcements</h4>
+            <div class="announce-item">
+              <strong>Site Maintenance</strong>
+              <div class="small">Vestibulum condimentum tellus lacus, in accumsan elit maximus ac…</div>
+            </div>
+            <div class="announce-item">
+              <strong>Community Share Day</strong>
+              <div class="small">Nam vel lectus tincidunt, rutrum nulla eu, ornare libero...</div>
+            </div>
+            <div class="announce-item">
+              <strong>Updated Privacy Policy</strong>
+              <div class="small">Phasellus efficitur nisl eget elit consectetur, eget condimentum ante auctor.</div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <h4>Trending</h4>
+            <div class="trending-list">
+              <div class="trend"><div class="avatar-small" style="background:#fde68a;border-radius:8px">🐘</div>
+                <div>
+                  <div class="who">@tegan</div>
+                  <div class="what">World Peace Builder</div>
+                </div>
+              </div>
+
+              <div class="trend"><div class="avatar-small" style="background:#ffd8b5;border-radius:8px">MO</div>
+                <div>
+                  <div class="who">@morgan</div>
+                  <div class="what">Super Cool Project</div>
+                </div>
+              </div>
+
+              <div class="trend"><div class="avatar-small" style="background:#c7f9cc;border-radius:8px">👩‍🚀</div>
+                <div>
+                  <div class="who">@kendall</div>
+                  <div class="what">Life Changing App</div>
+                </div>
+              </div>
+
+              <div class="trend"><div class="avatar-small" style="background:#c7f9ff;border-radius:8px">🧑‍💻</div>
+                <div>
+                  <div class="who">@alex</div>
+                  <div class="what">No Traffic Maker</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </aside>
+      </section>
+    </main>
+  </div>
+
+<script>
+  // Basic search filter for project cards
+  const searchInput = document.getElementById('searchInput');
+  const cardsContainer = document.getElementById('cardsContainer');
+  const cards = Array.from(cardsContainer.querySelectorAll('.card'));
+
+  searchInput.addEventListener('input', (e)=>{
+    const q = e.target.value.trim().toLowerCase();
+    cards.forEach(card=>{
+      const title = (card.getAttribute('data-title') || card.querySelector('h3').textContent).toLowerCase();
+      const body = (card.querySelector('p')?.textContent || "").toLowerCase();
+      const show = q === "" || title.includes(q) || body.includes(q);
+      card.style.display = show ? '' : 'none';
+    });
+  });
+
+  // simple upload button feedback
+  document.getElementById('uploadBtn').addEventListener('click', ()=>{
+    alert('Upload dialog would open (example stub).');
+  });
+
+  // small keyboard shortcut: press "/" to focus search
+  window.addEventListener('keydown', (e)=>{
+    if (e.key === '/') {
+      e.preventDefault();
+      searchInput.focus();
+    }
+  });
+</script>
+
+</body>
+</html>

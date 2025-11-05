@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>Document</title>
+    <style>
+        .word{
+           background: linear-gradient(rgb(145, 13, 206), rgb(0, 183, 255));
+            height: 60vh;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+        }
+        h4 {
+            color: white;
+  
+        }
+        .day {
+        
+            padding-right: 28px;
+            margin-top: 20px;
+        }
+        a.top {
+            text-decoration-line: none;
+            padding: 21px;
+        }
+        a.top:hover {
+            color: cyan;
+        }
+        a {
+            color: white;   
+        }
+         .container {
+            display: flex;
+             background-color: cornflowerblue;
+             justify-content: center;
+             align-items: center;
+             padding: 20px;
+             width: 70%;
+             height: 35%;
+             margin-top: -27%;
+             margin-left: 10%;
+             flex-direction: row;
+            flex-shrink: initial;
+            justify-content: space-between;
+         }
+         form{
+                 display: flex;
+                 flex-direction: column;
+                 justify-content: flex-start;
+                 align-items: flex-start; 
+                }
+        textarea {
+            width: 100%;
+            height: 15vh;
+        }
+        div button{
+                    padding: 15px 50px;
+                    background: linear-gradient(rgb(145, 13, 206), rgb(0, 183, 255));
+                    color: white;
+                    border: none;
+                    border: 2px solid black;
+        }
+        nav button{
+                    padding: 3px 40px;
+                    background: linear-gradient( purple, blue);
+                    color: white;
+                    border: none;
+        }
+        .parent{
+            background-color: white;
+            margin-right: 60px;
+            margin-top: 60px;
+            margin-bottom: 90px;
+        }
+        nav {
+            justify-content: space-between;
+        }
+        button:hover{
+            color: silver;
+            background: coral;
+        }
+        .parent button{
+            margin-top: 10px;
+            margin-bottom: 10px;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+        .parent h5{
+            margin-left: 15px;
+            margin-right: 15px;
+        }
+        .level form input  {
+            border-top: 2px solid red ;
+        }
+        .level form input {
+            border-bottom: 2px solid yellow;
+        }
+    </style>
+    </head>
+    <body>
+        <main>
+      <section class="word">
+        <nav>
+        <h4>Samatiah Digials</h4>
+        </nav>
+            <span class="day">
+            <a href="" class="top">Home</a>
+            <a href="" class="top">Services</a>
+            <a href="" class="top">Contact</a>
+            <a href="" class="top">Blog</a>
+            </span>
+          </section>  
+          <section class="container">
+         <div class="level">
+            <h3>Get a Quote</h3>
+            <form action="file">
+            <label for="fullname">Fullname</label><br>
+            <input type="text"><br>
+            <label for="email">Email address</label><br>
+            <input type="text"><br>
+            <label for="password">Password</label><br>
+            <input type="number"><br>
+            <label for="messages">Write Your message Here</label>
+            <textarea type="text" >GOOD</textarea>
+            <br>
+            <button>SEND</button>
+            </form>
+             </div>
+         <nav class="parent">
+            <button>Contact info</button>
+            <nav>
+            <h5>Skymaster react</h5>
+            </nav>
+            <nav>
+                <br>    
+            <h5>highbee@design.com</h5>
+            </nav>
+            <nav>
+                <br>
+            <h5>+2349134561537</h5>
+            </nav>
+        </nav>
+        </section>
+      </main> 
+    </body>
+</html>
